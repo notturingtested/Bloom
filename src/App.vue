@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
-import { games, Game } from "./games";
+import { ref } from 'vue';
+import HelloWorld from './components/HelloWorld.vue';
+import { games, Game } from './games';
 const game = ref<Game | null>(null);
-function chooseGame(index) {
+function chooseGame(index: number) {
   game.value = games[index];
 }
 </script>
