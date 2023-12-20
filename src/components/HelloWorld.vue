@@ -1,34 +1,29 @@
 <script setup lang="ts">
 import x from './x.vue';
-
+const props = defineProps({
+  game: {
+    type: Array,
+    required: true,
+  },
+});
 import { ref, computed, onMounted } from 'vue';
-interface Flower {
-  color: string;
-  selected: boolean;
-}
+
 const options: Flower[] = [
   { color: 'pink', selected: false },
   { color: 'orange', selected: false },
   { color: 'purple', selected: false },
   { color: 'yellow', selected: false },
-  { color: 'green', selected: false },
+  { color: 'sky', selected: false },
   { color: 'slate', selected: false },
 ];
+export interface Flower {
+  color: string;
+  selected: boolean;
+}
 const xx = options.map((option: Flower) => {
   return { ...option, score: [false, false, false] };
 });
 const colorScore = ref(xx);
-const game = ref<Flower[][]>([]);
-
-//randomize the array
-for (let i = 0; i < 10; ++i) {
-  const currentRow = [];
-  for (let j = 0; j < 9; j++) {
-    const randomIndex = Math.floor(Math.random() * options.length);
-    currentRow.push({ ...options[randomIndex] });
-  }
-  game.value.push(currentRow);
-}
 
 function flowerClasses(flower: Flower) {
   if (!flower.selected) {
@@ -38,9 +33,10 @@ function flowerClasses(flower: Flower) {
   }
 }
 
-const chunks = [];
-for (let i = 0; i < game.value.length; i += 5) {
-  let chunk = game.value.slice(i, i + 5);
+const chunks: Flower[][][] = [];
+
+for (let i = 0; i < props.game.length; i += 4) {
+  let chunk = props.game.slice(i, i + 4);
   for (let j = 0; j < chunk[0].length; j += 3) {
     let subChunk = chunk.map((row) => row.slice(j, j + 3));
     chunks.push(subChunk);
@@ -152,7 +148,7 @@ onMounted(() => {
         >
           <div
             v-for="(row, rowIndex) in bed"
-            class="grid grid-cols-3 gap-y-1 h-1/5"
+            class="grid grid-cols-3 gap-y-1 h-1/4"
             :key="rowIndex"
           >
             <div
@@ -380,13 +376,13 @@ onMounted(() => {
     <div class="text-orange-500 hover:text-orange-700 border-orange-500"></div>
     <div class="text-purple-500 hover:text-purple-700 border-purple-500"></div>
     <div class="text-yellow-500 hover:text-yellow-700 border-yellow-500"></div>
-    <div class="text-green-500 hover:text-green-700 border-green-500"></div>
+    <div class="text-sky-500 hover:text-sky-700 border-sky-500"></div>
     <div class="text-slate-500 hover:text-slate-700 border-slate-500"></div>
     <div class="text-pink-400 hover:text-pink-600"></div>
     <div class="text-orange-400 hover:text-orange-600"></div>
     <div class="text-purple-400 hover:text-purple-600"></div>
     <div class="text-yellow-400 hover:text-yellow-600"></div>
-    <div class="text-green-400 hover:text-green-600"></div>
+    <div class="text-sky-400 hover:text-sky-600"></div>
     <div class="text-slate-400 hover:text-slate-600"></div>
   </div>
   <!-- <div class="flex justify-center items-center absolute bottom-0 left-0">
