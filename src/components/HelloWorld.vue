@@ -109,37 +109,37 @@ onMounted(() => {
   elem.value = document.documentElement; // or a specific element
 });
 
-const toggleFullscreen = () => {
-  if (!elem.value) return;
+// const toggleFullscreen = () => {
+//   if (!elem.value) return;
 
-  if (!document.fullscreenElement) {
-    if (elem.value.requestFullscreen) {
-      elem.value.requestFullscreen();
-    } else if ((elem.value as any).mozRequestFullScreen) {
-      /* Firefox */
-      (elem.value as any).mozRequestFullScreen();
-    } else if ((elem.value as any).webkitRequestFullscreen) {
-      /* Chrome, Safari, Opera */
-      (elem.value as any).webkitRequestFullscreen();
-    } else if ((elem.value as any).msRequestFullscreen) {
-      /* IE/Edge */
-      (elem.value as any).msRequestFullscreen();
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if ((document as any).mozCancelFullScreen) {
-      /* Firefox */
-      (document as any).mozCancelFullScreen();
-    } else if ((document as any).webkitExitFullscreen) {
-      /* Chrome, Safari, Opera */
-      (document as any).webkitExitFullscreen();
-    } else if ((document as any).msExitFullscreen) {
-      /* IE/Edge */
-      (document as any).msExitFullscreen();
-    }
-  }
-};
+//   if (!document.fullscreenElement) {
+//     if (elem.value.requestFullscreen) {
+//       elem.value.requestFullscreen();
+//     } else if ((elem.value as any).mozRequestFullScreen) {
+//       /* Firefox */
+//       (elem.value as any).mozRequestFullScreen();
+//     } else if ((elem.value as any).webkitRequestFullscreen) {
+//       /* Chrome, Safari, Opera */
+//       (elem.value as any).webkitRequestFullscreen();
+//     } else if ((elem.value as any).msRequestFullscreen) {
+//       /* IE/Edge */
+//       (elem.value as any).msRequestFullscreen();
+//     }
+//   } else {
+//     if (document.exitFullscreen) {
+//       document.exitFullscreen();
+//     } else if ((document as any).mozCancelFullScreen) {
+//       /* Firefox */
+//       (document as any).mozCancelFullScreen();
+//     } else if ((document as any).webkitExitFullscreen) {
+//       /* Chrome, Safari, Opera */
+//       (document as any).webkitExitFullscreen();
+//     } else if ((document as any).msExitFullscreen) {
+//       /* IE/Edge */
+//       (document as any).msExitFullscreen();
+//     }
+//   }
+// };
 </script>
 
 <template>
