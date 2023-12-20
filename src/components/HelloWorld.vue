@@ -8,22 +8,18 @@ const props = defineProps({
     required: true,
   },
 });
-const options: Flower[] = [
-  { color: 'pink', selected: false },
-  { color: 'orange', selected: false },
-  { color: 'purple', selected: false },
-  { color: 'yellow', selected: false },
-  { color: 'sky', selected: false },
-  { color: 'slate', selected: false },
-];
+
 export interface Flower {
   color: string;
   selected: boolean;
 }
-const xx = options.map((option: Flower) => {
-  return { ...option, score: [false, false, false] };
-});
-const colorScore = ref(xx);
+const colorScore = ref([
+  { color: 'pink', selected: false, score: [false, false, false] },
+  { color: 'orange', selected: false, score: [false, false, false] },
+  { color: 'purple', selected: false, score: [false, false, false] },
+  { color: 'yellow', selected: false, score: [false, false, false] },
+  { color: 'sky', selected: false, score: [false, false, false] },
+]);
 
 function flowerClasses(flower: Flower) {
   if (!flower.selected) {
@@ -33,15 +29,6 @@ function flowerClasses(flower: Flower) {
   }
 }
 
-const chunks: Flower[][][] = [];
-
-for (let i = 0; i < props.game.length; i += 4) {
-  let chunk = props.game.slice(i, i + 4);
-  for (let j = 0; j < chunk[0].length; j += 3) {
-    let subChunk = chunk.map((row: any) => row.slice(j, j + 3));
-    chunks.push(subChunk);
-  }
-}
 function select(bedIndex: number, rowIndex: number, flowerIndex: number) {
   const flower = flowerBeds.value[bedIndex][rowIndex][flowerIndex];
   if (flower.selected) {
@@ -51,12 +38,25 @@ function select(bedIndex: number, rowIndex: number, flowerIndex: number) {
   }
   flowerBeds.value[bedIndex][rowIndex][flowerIndex] = flower;
 }
-const flowerBeds = ref(chunks);
+const flowerBeds = ref<Flower[][][]>([]);
 const rolling = ref(false);
 const unhappy = ref(false);
 const unhappiness = ref(0);
 const bedScore = ref([false, false, false, false]);
 const negativePoints = ref(-1);
+
+onMounted(() => {
+  const chunks: Flower[][][] = [];
+
+  for (let i = 0; i < props.game.length; i += 4) {
+    let chunk = props.game.slice(i, i + 4);
+    for (let j = 0; j < chunk[0].length; j += 3) {
+      let subChunk = chunk.map((row: any) => row.slice(j, j + 3));
+      chunks.push(subChunk);
+    }
+  }
+  flowerBeds.value = chunks;
+});
 const Points = computed(() => {
   let beds = 0;
   for (let i = 0; i < bedScore.value.length; i++) {

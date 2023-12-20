@@ -29,7 +29,7 @@ function chooseGame(index: number) {
       </div>
     </div>
     <div v-else>
-      <HelloWorld :game="games[0].Board" />
+      <HelloWorld :game="game.Board" />
       <button
         @click="game = null"
         class="bg-white shadow-sm py-2 px-4 text-green-700 rounded border border-green-700 hover:shadow-xl hover:border-green-900 hover:text-green-900 duration-500 absolute right-0 bottom-0 m-1"
