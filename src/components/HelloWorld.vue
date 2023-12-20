@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import x from './x.vue';
+import { ref, computed, onMounted } from 'vue';
+
 const props = defineProps({
   game: {
-    type: Array,
+    type: Array as () => Array<Array<Flower>>,
     required: true,
   },
 });
-import { ref, computed, onMounted } from 'vue';
-
 const options: Flower[] = [
   { color: 'pink', selected: false },
   { color: 'orange', selected: false },
@@ -38,7 +38,7 @@ const chunks: Flower[][][] = [];
 for (let i = 0; i < props.game.length; i += 4) {
   let chunk = props.game.slice(i, i + 4);
   for (let j = 0; j < chunk[0].length; j += 3) {
-    let subChunk = chunk.map((row) => row.slice(j, j + 3));
+    let subChunk = chunk.map((row: any) => row.slice(j, j + 3));
     chunks.push(subChunk);
   }
 }
