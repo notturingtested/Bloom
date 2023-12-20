@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import flower from './flower.vue';
 import x from './x.vue';
 
 import { ref, computed, onMounted } from 'vue';
